@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#fffaf4">
+  <title>Reinaldo & Gibelly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ivory:#fffaf4;
+      --paper:#fffdf9;
+      --gold:#b78a35;
+      --gold-dark:#8e661f;
+      --text:#4b4036;
+      --muted:#766a60;
+      --line:rgba(183,138,53,.18);
+      --shadow:0 16px 40px rgba(91,68,38,.10);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 8% 3%, rgba(226,204,181,.36), transparent 26%),
+        radial-gradient(circle at 96% 9%, rgba(234,216,194,.42), transparent 24%),
+        linear-gradient(180deg,#fffdf9 0%,#f8f1e8 100%);
+      color:var(--text);
+      font-family:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+      overflow-x:hidden;
+    }
+
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+
+    .page{
+      width:min(100%,520px);
+      margin:0 auto;
+      padding:12px 12px calc(28px + env(safe-area-inset-bottom));
+    }
+
+    .invitation{
+      position:relative;
+      overflow:hidden;
+      border-radius:34px;
+      background:
+        linear-gradient(rgba(255,253,249,.95),rgba(255,253,249,.98)),
+        radial-gradient(circle at center,#fff 0%,#f8eee2 100%);
+      border:1px solid var(--line);
+      box-shadow:0 26px 60px rgba(81,59,36,.14);
+      padding:20px 16px 30px;
+    }
+
+    .invitation::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.24;
+      background-image:
+        radial-gradient(circle at 20% 20%,rgba(143,101,31,.10) 0 1px,transparent 1.2px),
+        radial-gradient(circle at 80% 70%,rgba(143,101,31,.07) 0 1px,transparent 1.2px);
+      background-size:22px 22px,28px 28px;
+    }
+
+    .corner{
+      position:absolute;
+      width:170px;
+      height:170px;
+      pointer-events:none;
+      opacity:.76;
+      filter:saturate(.85);
+    }
+
+    .corner::before,
+    .corner::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 42% 36%,#fffdf9 0 16%,#ead7c3 37%,#d3b99d 61%,transparent 63%);
+      box-shadow:
+        48px 16px 0 -8px rgba(226,206,183,.88),
+        18px 54px 0 -11px rgba(237,220,202,.9),
+        71px 66px 0 -18px rgba(189,169,147,.58);
+    }
+
+    .corner::before{inset:22px}
+    .corner::after{inset:52px;transform:rotate(42deg)}
+    .c1{top:-78px;left:-76px}
+    .c2{top:-70px;right:-72px;transform:rotate(80deg)}
+    .c3{bottom:-92px;left:-80px;transform:rotate(20deg)}
+    .c4{bottom:-92px;right:-80px;transform:rotate(110deg)}
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      position:relative;
+      z-index:3;
+    }
+
+    .icon-btn{
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.9);
+      color:var(--gold-dark);
+      box-shadow:0 8px 22px rgba(96,70,36,.10);
+      display:grid;
+      place-items:center;
+      font-size:1.24rem;
+      transition:.2s ease;
+    }
+
+    .icon-btn:active{transform:scale(.97)}
+    .icon-btn.active{
+      background:var(--gold);
+      color:white;
+    }
+    .rings{
+      position:relative;
+      z-index:2;
+      width:min(100%,330px);
+      margin:2px auto 8px;
+      border-radius:28px;
+      overflow:hidden;
+      background:transparent;
+    }
+
+    .rings img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:contain;
+    }
+
+h1{
+      position:relative;
+      z-index:2;
+      margin:2px 0 18px;
+      text-align:center;
+      color:var(--gold-dark);
+      font-family:"Great Vibes","Snell Roundhand","Segoe Script",cursive;
+      font-weight:400;
+      font-style:normal;
+      font-size:clamp(3rem,13vw,5rem);
+      line-height:.9;
+      letter-spacing:0;
+      text-shadow:0 1px 0 rgba(255,255,255,.75);
+    }
+
+    .blessing{
+      position:relative;
+      z-index:2;
+      margin:0 auto;
+      max-width:430px;
+      text-align:center;
+      font-size:1rem;
+      line-height:1.68;
+      color:#5f5349;
+    }
+
+    .divider{
+      position:relative;
+      z-index:2;
+      width:190px;
+      height:1px;
+      margin:19px auto;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    }
+
+    .divider::after{
+      content:"◇";
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      background:var(--paper);
+      padding:0 10px;
+      color:var(--gold);
+      font-size:1rem;
+    }
+
+    .count-label{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      color:var(--gold-dark);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:.74rem;
+      font-weight:700;
+    }
+
+    .countdown{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:7px;
+      margin:11px 0 20px;
+      padding:13px 9px;
+      border-radius:22px;
+      background:rgba(255,255,255,.72);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+    }
+
+    .timebox{
+      text-align:center;
+      padding:7px 1px;
+      border-right:1px solid rgba(183,138,53,.18);
+    }
+
+    .timebox:last-child{border-right:0}
+
+    .timebox strong{
+      display:block;
+      color:var(--gold-dark);
+      font-size:1.55rem;
+      font-weight:400;
+      font-variant-numeric:tabular-nums;
+    }
+
+    .timebox span{
+      display:block;
+      margin-top:5px;
+      font-family:Arial,sans-serif;
+      font-size:.55rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    .accordion{
+      position:relative;
+      z-index:2;
+      display:grid;
+      gap:10px;
+    }
+
+    .item{
+      border-radius:20px;
+      overflow:hidden;
+      background:rgba(255,255,255,.8);
+      border:1px solid var(--line);
+      box-shadow:0 8px 24px rgba(87,64,38,.07);
+    }
+
+    .trigger{
+      width:100%;
+      border:0;
+      background:transparent;
+      padding:15px 14px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:var(--gold-dark);
+      text-align:left;
+    }
+
+    .section-icon{
+      flex:0 0 42px;
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:#fff;
+      display:grid;
+      place-items:center;
+      box-shadow:0 5px 14px rgba(96,70,36,.10);
+      font-size:1.1rem;
+    }
+
+    .title-wrap{
+      flex:1;
+      min-width:0;
+    }
+
+    .title-wrap strong{
+      display:block;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+      font-size:.83rem;
+    }
+
+    .title-wrap small{
+      display:block;
+      margin-top:3px;
+      color:var(--muted);
+      font-size:.75rem;
+      letter-spacing:0;
+      text-transform:none;
+      font-weight:400;
+    }
+
+    .chev{
+      font-size:1.16rem;
+      transition:.25s ease;
+    }
+
+    .item.open .chev{transform:rotate(180deg)}
+
+    .panel{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .38s ease;
+    }
+
+    .inside{
+      padding:0 16px 18px;
+      color:#665a50;
+      line-height:1.65;
+      font-size:.96rem;
+    }
+
+    .photo-surprise{
+      margin:2px 0 16px;
+      border-radius:22px;
+      overflow:hidden;
+      border:1px solid rgba(183,138,53,.24);
+      box-shadow:0 12px 28px rgba(76,57,34,.12);
+      animation:reveal .7s ease both;
+      position:relative;
+    }
+
+    .photo-surprise img{
+      display:block;
+      width:100%;
+      aspect-ratio:4/3;
+      object-fit:cover;
+      object-position:center;
+    }
+
+    .photo-surprise::after{
+      content:"Nuestro amor, nuestra promesa";
+      position:absolute;
+      inset:auto 0 0;
+      padding:34px 16px 14px;
+      text-align:center;
+      color:white;
+      font-style:italic;
+      background:linear-gradient(transparent,rgba(34,25,18,.76));
+    }
+
+
+    .story-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(118px,.75fr);
+      gap:14px;
+      align-items:center;
+    }
+
+    .story-copy{
+      min-width:0;
+      font-size:.92rem;
+      line-height:1.65;
+      color:#665a50;
+    }
+
+    .story-photo{
+      position:relative;
+      width:100%;
+      aspect-ratio:1/1.16;
+      display:grid;
+      place-items:center;
+      padding:10px;
+      animation:reveal .7s ease both;
+    }
+
+    .story-photo::before,
+    .story-photo::after{
+      content:"";
+      position:absolute;
+      inset:6px;
+      border:1.5px solid rgba(183,138,53,.72);
+      clip-path:polygon(25% 0,75% 0,100% 25%,100% 75%,75% 100%,25% 100%,0 75%,0 25%);
+      transform:rotate(7deg);
+    }
+
+    .story-photo::after{
+      inset:13px;
+      transform:rotate(-5deg);
+      opacity:.55;
+    }
+
+    .story-photo img{
+      position:relative;
+      z-index:1;
+      width:86%;
+      height:86%;
+      object-fit:cover;
+      object-position:center;
+      clip-path:polygon(25% 0,75% 0,100% 25%,100% 75%,75% 100%,25% 100%,0 75%,0 25%);
+      filter:saturate(.9) contrast(.97);
+    }
+
+    .story-floral{
+      position:absolute;
+      z-index:2;
+      right:-2px;
+      bottom:2px;
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 40% 35%,#fffaf4 0 18%,#ead8c6 42%,#cdb49a 68%,transparent 70%);
+      box-shadow:
+        -24px -4px 0 -12px rgba(214,195,174,.9),
+        -8px -27px 0 -15px rgba(225,210,193,.9);
+      opacity:.9;
+    }
+
+    @media (max-width:390px){
+      .story-layout{
+        grid-template-columns:minmax(0,1.15fr) minmax(105px,.85fr);
+        gap:10px;
+      }
+      .story-copy{
+        font-size:.82rem;
+        line-height:1.55;
+      }
+      .story-photo{
+        padding:5px;
+      }
+    }
+
+    @keyframes reveal{
+      from{opacity:0;transform:scale(.95)}
+      to{opacity:1;transform:none}
+    }
+
+    .verse{
+      margin-top:14px;
+      padding:13px 14px;
+      border-left:3px solid var(--gold);
+      border-radius:0 14px 14px 0;
+      background:#f7efe5;
+      font-style:italic;
+    }
+
+    .detail-grid{
+      display:grid;
+      gap:10px;
+    }
+
+    .detail{
+      background:#f7f0e7;
+      border-radius:14px;
+      padding:12px 13px;
+    }
+
+    .detail b{color:var(--gold-dark)}
+
+    .action{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:0;
+      border-radius:999px;
+      padding:12px 16px;
+      margin-top:12px;
+      background:var(--gold);
+      color:white;
+      font-family:Arial,sans-serif;
+      font-size:.86rem;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .rsvp{
+      display:grid;
+      gap:11px;
+    }
+
+    label{
+      display:grid;
+      gap:6px;
+      font-family:Arial,sans-serif;
+      color:#5d5148;
+      font-size:.82rem;
+      font-weight:700;
+    }
+
+    input,select{
+      width:100%;
+      min-height:46px;
+      border:1px solid rgba(143,101,31,.22);
+      border-radius:13px;
+      background:#fff;
+      padding:0 12px;
+      color:#3e352c;
+      font-size:1rem;
+      outline:none;
+    }
+
+    input:focus,select:focus{border-color:var(--gold)}
+
+    .hint{
+      font-family:Arial,sans-serif;
+      font-size:.75rem;
+      color:var(--muted);
+      line-height:1.45;
+    }
+
+    .share-bottom{
+      position:relative;
+      z-index:2;
+      margin-top:20px;
+      text-align:center;
+    }
+
+    .share-bottom button{
+      border:0;
+      background:transparent;
+      color:var(--gold-dark);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.75rem;
+    }
+
+    @media (max-width:360px){
+      .invitation{padding-left:12px;padding-right:12px}
+      .timebox strong{font-size:1.28rem}
+      .countdown{gap:4px}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="invitation">
+      <span class="corner c1"></span>
+      <span class="corner c2"></span>
+      <span class="corner c3"></span>
+      <span class="corner c4"></span>
+
+      <div class="topbar">
+        <button class="icon-btn" id="menuBtn" type="button" aria-label="Abrir primera sección">☰</button>
+        <button class="icon-btn" id="musicBtn" type="button" aria-label="Reproducir o pausar música">♫</button>
+      </div>
+
+      <div class="rings">
+        <img src="assets/anillos-florales.jpg" alt="Anillos de boda rodeados de flores">
+      </div>
+
+      <h1>Reinaldo Ávila<br><span style="font-size:.68em">&</span><br>Gibelly Rincón</h1>
+
+      <p class="blessing">
+        La bendición que viene de la mano de Dios despertó un día el amor entre nosotros
+        para unirnos y juntos recorrer un solo camino. Es por ello que nos presentamos
+        delante de Él y ponemos en sus manos nuestro matrimonio.
+      </p>
+
+      <div class="divider"></div>
+
+      <div class="count-label">Faltan para nuestro gran día</div>
+
+      <div class="countdown" aria-live="polite">
+        <div class="timebox"><strong id="days">000</strong><span>Días</span></div>
+        <div class="timebox"><strong id="hours">00</strong><span>Horas</span></div>
+        <div class="timebox"><strong id="minutes">00</strong><span>Minutos</span></div>
+        <div class="timebox"><strong id="seconds">00</strong><span>Segundos</span></div>
+      </div>
+
+      <section class="accordion">
+
+        <article class="item" data-key="story">
+          <button class="trigger" type="button">
+            <span class="section-icon">♡</span>
+            <span class="title-wrap">
+              <strong>Nuestra historia</strong>
+              <small>Así comenzó nuestro camino</small>
+            </span>
+            <span class="chev">⌄</span>
+          </button>
+
+          <div class="panel">
+            <div class="inside">
+              <div class="story-layout">
+                <div class="story-copy">
+                  Entre risas, conversaciones y un sinfín de momentos, Dios unió nuestros caminos.
+                  Aprendimos a caminar juntos, a soñar en la misma dirección y a construir un amor
+                  que hoy nos lleva a este hermoso compromiso.
+                  <br><br>
+                  Gracias por ser parte de nuestra historia.
+                </div>
+
+                <div class="story-photo">
+                  <img src="assets/foto-pareja.jpg" alt="Reinaldo y Gibelly">
+                  <span class="story-floral"></span>
+                </div>
+              </div>
+
+              <div class="verse">
+                “Uno solo puede ser vencido, pero dos pueden resistir. La cuerda de tres hilos
+                no se rompe fácilmente.” — Eclesiastés 4:12
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="item" data-key="date">
+          <button class="trigger" type="button">
+            <span class="section-icon">▣</span>
+            <span class="title-wrap">
+              <strong>Fecha y hora</strong>
+              <small>Detalles del gran día</small>
+            </span>
+            <span class="chev">⌄</span>
+          </button>
+
+          <div class="panel">
+            <div class="inside">
+              <div class="detail-grid">
+                <div class="detail"><b>Fecha:</b> 25 de julio de 2026</div>
+                <div class="detail"><b>Hora:</b> 12:00 hrs</div>
+                <div class="detail"><b>Lugar:</b> Iglesia IMC Santiago</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="item" data-key="location">
+          <button class="trigger" type="button">
+            <span class="section-icon">⌖</span>
+            <span class="title-wrap">
+              <strong>Ubicación</strong>
+              <small>Cómo llegar</small>
+            </span>
+            <span class="chev">⌄</span>
+          </button>
+
+          <div class="panel">
+            <div class="inside">
+              <div class="detail">
+                <b>Iglesia IMC Santiago</b><br>
+                General González Balcarce 2056, Santiago.
+              </div>
+
+              <a class="action"
+                 target="_blank"
+                 rel="noopener"
+                 href="https://www.google.com/maps/search/?api=1&query=General+Gonzalez+Balcarce+2056+Santiago">
+                Abrir en Google Maps
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="item" data-key="dress">
+          <button class="trigger" type="button">
+            <span class="section-icon">✦</span>
+            <span class="title-wrap">
+              <strong>Código de vestimenta</strong>
+              <small>Traje formal</small>
+            </span>
+            <span class="chev">⌄</span>
+          </button>
+
+          <div class="panel">
+            <div class="inside">
+              <div class="detail" style="text-align:center;font-size:1.16rem">
+                <b>Traje formal</b>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="item" data-key="rsvp">
+          <button class="trigger" type="button">
+            <span class="section-icon">✉</span>
+            <span class="title-wrap">
+              <strong>Confirmar asistencia</strong>
+              <small>Nos encantaría contar contigo</small>
+            </span>
+            <span class="chev">⌄</span>
+          </button>
+
+          <div class="panel">
+            <div class="inside">
+              <div class="rsvp">
+                <label>
+                  Nombre y apellido
+                  <input id="guestName" type="text" autocomplete="name" placeholder="Escribe tu nombre">
+                </label>
+
+                <label>
+                  Cantidad de personas
+                  <input id="guestCount" type="number" inputmode="numeric" min="1" max="10" value="1">
+                </label>
+
+                <label>
+                  Confirmación
+                  <select id="attendance">
+                    <option value="">Selecciona una opción</option>
+                    <option value="Sí, asistiré">Sí, asistiré</option>
+                    <option value="No podré asistir">No podré asistir</option>
+                  </select>
+                </label>
+
+                <button class="action" id="sendRsvp" type="button">Enviar por WhatsApp</button>
+
+                <div class="hint">
+                  Se abrirá WhatsApp con la confirmación lista para enviar.
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+      <div class="share-bottom">
+        <button id="shareBottom" type="button">↗ Compartir invitación</button>
+      </div>
+
+      <audio id="music" loop preload="none">
+        <source src="assets/butterfly-waltz.mp3" type="audio/mpeg">
+      </audio>
+    </section>
+  </main>
+
+  <script>
+    const weddingDate = new Date('2026-07-25T12:00:00-04:00').getTime();
+    const music = document.getElementById('music');
+    const musicBtn = document.getElementById('musicBtn');
+
+    function updateCountdown(){
+      const distance = weddingDate - Date.now();
+
+      if(distance <= 0){
+        document.getElementById('days').textContent = '000';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        return;
+      }
+
+      const days = Math.floor(distance / 86400000);
+      const hours = Math.floor(distance / 3600000) % 24;
+      const minutes = Math.floor(distance / 60000) % 60;
+      const seconds = Math.floor(distance / 1000) % 60;
+
+      document.getElementById('days').textContent = String(days).padStart(3,'0');
+      document.getElementById('hours').textContent = String(hours).padStart(2,'0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown,1000);
+
+    function closeAll(){
+      document.querySelectorAll('.item').forEach(item=>{
+        item.classList.remove('open');
+        item.querySelector('.panel').style.maxHeight = null;
+      });
+    }
+
+    function openItem(item){
+      const panel = item.querySelector('.panel');
+      item.classList.add('open');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      setTimeout(()=>item.scrollIntoView({behavior:'smooth',block:'center'}),120);
+    }
+
+    document.querySelectorAll('.trigger').forEach(button=>{
+      button.addEventListener('click',()=>{
+        const item = button.closest('.item');
+        const wasOpen = item.classList.contains('open');
+
+        closeAll();
+
+        if(!wasOpen){
+          openItem(item);
+        }
+      });
+    });
+
+    document.getElementById('menuBtn').addEventListener('click',()=>{
+      const first = document.querySelector('[data-key="story"]');
+      closeAll();
+      openItem(first);
+    });
+
+    musicBtn.addEventListener('click',async()=>{
+      try{
+        if(music.paused){
+          await music.play();
+          musicBtn.classList.add('active');
+          musicBtn.textContent = '❚❚';
+        }else{
+          music.pause();
+          musicBtn.classList.remove('active');
+          musicBtn.textContent = '♫';
+        }
+      }catch(error){
+        alert('Agrega el archivo assets/butterfly-waltz.mp3 para activar la música.');
+      }
+    });
+
+    async function shareInvitation(){
+      const shareData = {
+        title:'Invitación de Reinaldo y Gibelly',
+        text:'Acompáñanos en nuestro gran día.',
+        url:location.href
+      };
+
+      if(navigator.share){
+        try{
+          await navigator.share(shareData);
+        }catch(error){}
+      }else{
+        alert('Comparte el enlace de esta invitación desde tu navegador.');
+      }
+    }
+
+    document.getElementById('shareBottom').addEventListener('click',shareInvitation);
+
+    document.getElementById('sendRsvp').addEventListener('click',()=>{
+      const name = document.getElementById('guestName').value.trim();
+      const count = document.getElementById('guestCount').value;
+      const attendance = document.getElementById('attendance').value;
+
+      if(!name || !count || !attendance){
+        alert('Completa nombre, cantidad de personas y confirmación.');
+        return;
+      }
+
+      // Reemplaza este número con el WhatsApp real, incluyendo código de país.
+      const whatsappNumber = '56991512982';
+
+      const text =
+        `Confirmación de asistencia%0A%0A` +
+        `Nombre: ${encodeURIComponent(name)}%0A` +
+        `Cantidad de personas: ${encodeURIComponent(count)}%0A` +
+        `Respuesta: ${encodeURIComponent(attendance)}`;
+
+      window.open(`https://wa.me/${whatsappNumber}?text=${text}`,'_blank');
+    });
+  </script>
+</body>
+</html>

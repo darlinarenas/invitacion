@@ -1,0 +1,63 @@
+INVITACIÓN PREMIUM — REINALDO Y GIBELLY
+
+CÓMO ABRIRLA
+1. Descomprime el archivo ZIP.
+2. Abre index.html con Chrome, Safari o Edge.
+3. Para publicarla, sube toda la carpeta a Vercel, Netlify o cualquier hosting.
+
+FOTO
+La foto ya está incluida en:
+assets/foto-pareja.jpg
+
+MÚSICA
+La invitación ya está preparada para reproducir música.
+Solo debes colocar el archivo MP3 dentro de la carpeta assets con este nombre exacto:
+
+butterfly-waltz.mp3
+
+La ruta final debe quedar:
+assets/butterfly-waltz.mp3
+
+IMPORTANTE SOBRE ANDROID E IPHONE
+La música debe comenzar cuando el invitado toca el botón musical.
+Los navegadores móviles no permiten reproducción automática sin interacción.
+
+WHATSAPP
+Busca dentro de index.html esta línea:
+
+const whatsappNumber = '56900000000';
+
+Cambia el número por el WhatsApp real, incluyendo código de país, sin espacios ni símbolos.
+
+Ejemplo Chile:
+56912345678
+
+Ejemplo Venezuela:
+584121234567
+
+FECHA DE LA CUENTA REGRESIVA
+Busca dentro de index.html:
+
+const weddingDate = new Date('2026-07-25T12:00:00-04:00').getTime();
+
+Puedes cambiar la fecha y la hora cuando sea necesario.
+
+ACTUALIZACIÓN VISUAL
+- La imagen superior de los anillos está incluida en assets/anillos-florales.jpg.
+- Los nombres usan una tipografía caligráfica premium similar a la referencia.
+- Nuestra historia abre con texto a la izquierda y la fotografía a la derecha.
+
+PROGRAMA DEL GRAN DÍA
+La invitación incluye ahora una línea de tiempo desplegable con horarios de ejemplo:
+- 12:00 Recepción de invitados
+- 13:00 Ceremonia
+- 14:00 Almuerzo
+- 15:00 Celebración
+
+Puedes modificar directamente esos horarios y textos dentro de index.html.
+
+CUENTA REGRESIVA CORREGIDA
+La fecha interna quedó restaurada a:
+25 de julio de 2026, 12:00 hrs.
+
+El contador ahora valida la fecha antes de mostrar los números.

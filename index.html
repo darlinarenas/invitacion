@@ -698,7 +698,7 @@ h1{
             <div class="inside">
               <div class="detail-grid">
                 <div class="detail"><b>Fecha:</b> 25 de julio de 2026</div>
-                <div class="detail"><b>Hora:</b> 12:00 hrs</div>
+                <div class="detail"><b>Hora:</b>  hrs</div>
                 <div class="detail"><b>Lugar:</b> Iglesia IMC Santiago</div>
               </div>
             </div>
@@ -745,45 +745,65 @@ h1{
 
           <div class="panel">
             <div class="inside">
-              <div class="program-list">
-                <div class="program-row">
-                  <div class="program-time">12:00</div>
-                  <div class="program-line"><span class="program-dot"></span></div>
-                  <div class="program-info">
-                    <strong>Recepción de invitados</strong>
-                    <span>Bienvenida y ubicación de los asistentes.</span>
-                  </div>
-                </div>
+              
+<div class="program-list">
+  <div class="program-row">
+    <div class="program-time"></div>
+    <div class="program-line"><span class="program-dot"></span></div>
+    <div class="program-info"><strong>Recepción de invitados</strong><span>Bienvenida y ubicación de los asistentes.</span></div>
+  </div>
 
-                <div class="program-row">
-                  <div class="program-time">13:00</div>
-                  <div class="program-line"><span class="program-dot"></span></div>
-                  <div class="program-info">
-                    <strong>Ceremonia</strong>
-                    <span>Inicio de la ceremonia religiosa.</span>
-                  </div>
-                </div>
+  <div class="program-row">
+    <div class="program-time"></div>
+    <div class="program-line"><span class="program-dot"></span></div>
+    <div class="program-info"><strong>Ceremonia</strong><span>Celebración del matrimonio.</span></div>
+  </div>
 
-                <div class="program-row">
-                  <div class="program-time">14:00</div>
-                  <div class="program-line"><span class="program-dot"></span></div>
-                  <div class="program-info">
-                    <strong>Almuerzo</strong>
-                    <span>Compartiremos la comida y el brindis.</span>
-                  </div>
-                </div>
+  <div class="program-row">
+    <div class="program-time"></div>
+    <div class="program-line"><span class="program-dot"></span></div>
+    <div class="program-info"><strong>Almuerzo</strong><span>Compartiremos este momento con todos.</span></div>
+  </div>
 
-                <div class="program-row">
-                  <div class="program-time">15:00</div>
-                  <div class="program-line"><span class="program-dot"></span></div>
-                  <div class="program-info">
-                    <strong>Celebración</strong>
-                    <span>Música, fotografías y una pequeña fiesta.</span>
-                  </div>
-                </div>
-              </div>
+  <div class="program-row">
+    <div class="program-time"></div>
+    <div class="program-line"><span class="program-dot"></span></div>
+    <div class="program-info"><strong>Celebración</strong><span>Comienza la fiesta.</span></div>
+  </div>
 
-              <div class="hint" style="margin-top:14px">
+  <div class="program-row">
+    <div class="program-time"></div>
+    <div class="program-line"><span class="program-dot"></span></div>
+    <div class="program-info"><strong>Vals y baile sorpresa</strong><span>Primer baile de los novios.</span></div>
+  </div>
+
+  <div class="program-row">
+    <div class="program-time"></div>
+    <div class="program-line"><span class="program-dot"></span></div>
+    <div class="program-info"><strong>Brindis</strong><span>Un momento para celebrar juntos.</span></div>
+  </div>
+
+  <div class="program-row">
+    <div class="program-time"></div>
+    <div class="program-line"><span class="program-dot"></span></div>
+    <div class="program-info"><strong>Lanzamiento del ramo</strong><span>Tradición para las solteras.</span></div>
+  </div>
+
+  <div class="program-row">
+    <div class="program-time"></div>
+    <div class="program-line"><span class="program-dot"></span></div>
+    <div class="program-info"><strong>Sorpresa para los solteros</strong><span>Un momento especial para ellos.</span></div>
+  </div>
+
+  <div class="program-row">
+    <div class="program-time"></div>
+    <div class="program-line"><span class="program-dot"></span></div>
+    <div class="program-info"><strong>Juegos y diversión</strong><span>Para cerrar la celebración con alegría.</span></div>
+  </div>
+</div>
+
+<div class="hint" style="margin-top:14px">
+
                 Estos horarios son de ejemplo y pueden cambiarse fácilmente en el archivo HTML.
               </div>
             </div>
@@ -869,7 +889,16 @@ h1{
     const musicBtn = document.getElementById('musicBtn');
 
     function updateCountdown(){
-      const distance = weddingDate - Date.now();
+      const now = Date.now();
+      const distance = weddingDate - now;
+
+      if(!Number.isFinite(weddingDate)){
+        document.getElementById('days').textContent = '--';
+        document.getElementById('hours').textContent = '--';
+        document.getElementById('minutes').textContent = '--';
+        document.getElementById('seconds').textContent = '--';
+        return;
+      }
 
       if(distance <= 0){
         document.getElementById('days').textContent = '000';
@@ -880,9 +909,9 @@ h1{
       }
 
       const days = Math.floor(distance / 86400000);
-      const hours = Math.floor(distance / 3600000) % 24;
-      const minutes = Math.floor(distance / 60000) % 60;
-      const seconds = Math.floor(distance / 1000) % 60;
+      const hours = Math.floor((distance % 86400000) / 3600000);
+      const minutes = Math.floor((distance % 3600000) / 60000);
+      const seconds = Math.floor((distance % 60000) / 1000);
 
       document.getElementById('days').textContent = String(days).padStart(3,'0');
       document.getElementById('hours').textContent = String(hours).padStart(2,'0');

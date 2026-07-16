@@ -473,85 +473,6 @@ h1{
       text-decoration:none;
     }
 
-
-    .program-list{
-      display:grid;
-      gap:0;
-      margin-top:4px;
-    }
-
-    .program-row{
-      position:relative;
-      display:grid;
-      grid-template-columns:76px 18px minmax(0,1fr);
-      gap:10px;
-      align-items:start;
-      padding:0 0 18px;
-    }
-
-    .program-row:last-child{
-      padding-bottom:0;
-    }
-
-    .program-time{
-      color:var(--gold-dark);
-      font-weight:600;
-      text-align:right;
-      padding-top:1px;
-      font-size:.96rem;
-      font-variant-numeric:tabular-nums;
-    }
-
-    .program-line{
-      position:relative;
-      min-height:54px;
-      display:flex;
-      justify-content:center;
-    }
-
-    .program-line::before{
-      content:"";
-      position:absolute;
-      top:17px;
-      bottom:-18px;
-      width:1px;
-      background:linear-gradient(var(--gold),rgba(183,138,53,.18));
-    }
-
-    .program-row:last-child .program-line::before{
-      display:none;
-    }
-
-    .program-dot{
-      position:relative;
-      z-index:1;
-      width:13px;
-      height:13px;
-      margin-top:4px;
-      border-radius:50%;
-      background:var(--gold);
-      border:3px solid #fffaf4;
-      box-shadow:0 0 0 1px rgba(183,138,53,.38);
-    }
-
-    .program-info{
-      padding:0 0 0 2px;
-    }
-
-    .program-info strong{
-      display:block;
-      color:var(--gold-dark);
-      font-size:1rem;
-      margin-bottom:3px;
-    }
-
-    .program-info span{
-      display:block;
-      color:var(--muted);
-      font-size:.88rem;
-      line-height:1.45;
-    }
-
     .rsvp{
       display:grid;
       gap:11px;
@@ -641,7 +562,7 @@ h1{
       <div class="count-label">Faltan para nuestro gran día</div>
 
       <div class="countdown" aria-live="polite">
-        <div class="timebox"><strong id="days">000</strong><span>Días</span></div>
+        <div class="timebox"><strong id="days">0</strong><span>Días</span></div>
         <div class="timebox"><strong id="hours">00</strong><span>Horas</span></div>
         <div class="timebox"><strong id="minutes">00</strong><span>Minutos</span></div>
         <div class="timebox"><strong id="seconds">00</strong><span>Segundos</span></div>
@@ -728,64 +649,6 @@ h1{
                  href="https://www.google.com/maps/search/?api=1&query=General+Gonzalez+Balcarce+2056+Santiago">
                 Abrir en Google Maps
               </a>
-            </div>
-          </div>
-        </article>
-
-
-        <article class="item" data-key="program">
-          <button class="trigger" type="button">
-            <span class="section-icon">◷</span>
-            <span class="title-wrap">
-              <strong>Programa del gran día</strong>
-              <small>Cada momento de nuestra celebración</small>
-            </span>
-            <span class="chev">⌄</span>
-          </button>
-
-          <div class="panel">
-            <div class="inside">
-              <div class="program-list">
-                <div class="program-row">
-                  <div class="program-time">12:00</div>
-                  <div class="program-line"><span class="program-dot"></span></div>
-                  <div class="program-info">
-                    <strong>Recepción de invitados</strong>
-                    <span>Bienvenida y ubicación de los asistentes.</span>
-                  </div>
-                </div>
-
-                <div class="program-row">
-                  <div class="program-time">13:00</div>
-                  <div class="program-line"><span class="program-dot"></span></div>
-                  <div class="program-info">
-                    <strong>Ceremonia</strong>
-                    <span>Inicio de la ceremonia religiosa.</span>
-                  </div>
-                </div>
-
-                <div class="program-row">
-                  <div class="program-time">14:00</div>
-                  <div class="program-line"><span class="program-dot"></span></div>
-                  <div class="program-info">
-                    <strong>Almuerzo</strong>
-                    <span>Compartiremos la comida y el brindis.</span>
-                  </div>
-                </div>
-
-                <div class="program-row">
-                  <div class="program-time">15:00</div>
-                  <div class="program-line"><span class="program-dot"></span></div>
-                  <div class="program-info">
-                    <strong>Celebración</strong>
-                    <span>Música, fotografías y una pequeña fiesta.</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="hint" style="margin-top:14px">
-                Estos horarios son de ejemplo y pueden cambiarse fácilmente en el archivo HTML.
-              </div>
             </div>
           </div>
         </article>
@@ -971,7 +834,7 @@ h1{
       }
 
       // Reemplaza este número con el WhatsApp real, incluyendo código de país.
-      const whatsappNumber = '56991512982';
+      const whatsappNumber = '56900000000';
 
       const text =
         `Confirmación de asistencia%0A%0A` +
